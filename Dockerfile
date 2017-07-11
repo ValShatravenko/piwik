@@ -38,8 +38,5 @@ RUN chmod +x /opt/kaigara/operations/entrypoint.sh
 
 VOLUME /var/www/html
 
-COPY db.php    /db.php
-COPY setup.php /setup.php
-
 ENTRYPOINT ["kaigara"]
 CMD ["start", "apache2-foreground"]

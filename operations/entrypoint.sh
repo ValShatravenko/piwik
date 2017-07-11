@@ -9,19 +9,13 @@ if [ ! -e piwik.php ]; then
 fi
 
 
-echo "Installing Piwik DB..."
-
-until mysqladmin ping -uroot -pheliostech -hdb
-do
-  sleep 1
-done
-
-php /db.php
+kaigara render db_setup.sh > /db_setup.sh
+chmod +x /db_setup.sh
+/db_setup.sh
 
 echo "Configuring Piwik..."
+
+kaigara render setup.php > /setup.php
 php /setup.php
 
 chown -R www-data .
-# touch config/config.ini.php
-# chmod +w config/config.ini.php
-# kaigara render config.php | tee config/config.ini.php

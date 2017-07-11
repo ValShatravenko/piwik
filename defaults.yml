@@ -1,5 +1,13 @@
 db:
-  host: "db"
+  host:     "db"
   username: "root"
   password: "heliostech"
-  dbname: "piwik"
+  dbname:   "piwik"
+site:
+  name:     "Modix"
+  url:      "http://www.modix.eu"
+user:
+  login:    "admin"
+  password: "heliostech"
+  email:    "admin@heliostech.fr"
+

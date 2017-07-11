@@ -99,11 +99,11 @@ class PiwikCliInstall {
 		$config->General['salt'] = Common::generateUniqId();
 		$config->General['installation_in_progress'] = 1;
 		$config->database = array(
-				"host" => "db",
+				"host" => "{{ .db.host }}",
 				"adapter" => "Pdo\\Mysql",
-				"username" => "root",
-				"password" => "heliostech",
-				"dbname" => "piwik",
+				"username" => "{{ .db.username }}",
+				"password" => "{{ .db.password }}",
+				"dbname" => "{{ .db.dbname }}",
 				"tables_prefix" => "piwik_");
 
 		// Connect to the database with retry timeout so any provisioning scripts & DB setup scripts are given a chance
@@ -145,7 +145,7 @@ class PiwikCliInstall {
 	 */
 	protected function createUser() {
 		$this->log('Ensuring Users get Created');
-		$su_data = array('login' => 'admin', 'email' => 'valik.kiev@gmail.com', 'password' => 'heliostech');
+		$su_data = array('login' => '{{ .user.login }}', 'email' => '{{ .user.email }}', 'password' => '{{ .user.password }}');
 		Access::doAsSuperUser(function () use ($su_data) {
 			$api = APIUsersManager::getInstance();
 			if (!$api->userExists($su_data['login']) and !$api->userEmailExists($su_data['email'])) {
@@ -161,7 +161,7 @@ class PiwikCliInstall {
 	 */
 	protected function addWebsite() {
 		$this->log('Adding Primary Website');
-		$site_data = array('site_name' => 'modix', 'site_url' => 'http://www.modix.eu');
+		$site_data = array('site_name' => '{{ .site.name }}', 'site_url' => '{{ .site.url }}');
 		$result = Access::doAsSuperUser(function () use ($site_data) {
 			return APISitesManager::getInstance()->addSite($site_data['site_name'], $site_data['site_url'], 0);
 		});
