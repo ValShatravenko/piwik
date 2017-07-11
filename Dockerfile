@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
       libpng12-dev \
       libldap2-dev \
       zip \
+      mysql-client \
       && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr \
@@ -32,9 +33,13 @@ RUN curl -fsSL -o /usr/src/piwik/misc/GeoIPCity.dat.gz http://geolite.maxmind.co
 RUN curl -sL https://kaigara.org/get | sh
 COPY operations /opt/kaigara/operations
 COPY resources /etc/kaigara/resources
+COPY defaults.yml /etc/kaigara/metadata/defaults.yml
 RUN chmod +x /opt/kaigara/operations/entrypoint.sh
 
 VOLUME /var/www/html
+
+COPY db.php    /db.php
+COPY setup.php /setup.php
 
 ENTRYPOINT ["kaigara"]
 CMD ["start", "apache2-foreground"]

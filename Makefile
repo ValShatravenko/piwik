@@ -9,3 +9,6 @@ build:
 start: build
 	@docker run -d --env="MYSQL_ROOT_PASSWORD=heliostech" --name="db" mysql
 	@docker run -d -p 80:80 --link db:db --name="piwik" $(IMAGE):$(TAG)
+clean:
+	@docker stop {piwik,db}
+	@docker rm   {piwik,db}
