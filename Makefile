@@ -1,4 +1,4 @@
-IMAGE ?= kaigara/piwik
+IMAGE ?= valshatravenko/piwik
 TAG   ?= $(shell git describe --tags --abbrev=0 2>/dev/null || echo "1.0.0")
 
 .PHONY: build

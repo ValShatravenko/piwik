@@ -5,9 +5,9 @@ sleep 5
 
 echo "Installing Piwik DB..."
 
-until mysqladmin ping -u {{ .db.username }}  -p{{ .db.password }} -h {{ .db.host}}
+until mysqladmin ping -u{{ .db.username }}  -p{{ .db.password }} -h {{ .db.host }}
 do
     sleep 1
 done
 
-echo "CREATE DATABASE piwik" | mysql -u {{ .db.username }}  -p{{ .db.password }} -h {{ .db.host}}
+echo "CREATE DATABASE piwik" | mysql-u {{ .db.username }}  -p{{ .db.password }} -h {{ .db.host }}
