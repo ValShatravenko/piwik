@@ -10,4 +10,4 @@ do
     sleep 1
 done
 
-echo "CREATE DATABASE piwik" | mysql-u {{ .db.username }}  -p{{ .db.password }} -h {{ .db.host }}
+echo "CREATE DATABASE piwik" | mysql -u {{ .db.username }}  -p{{ .db.password }} -h {{ .db.host }}
